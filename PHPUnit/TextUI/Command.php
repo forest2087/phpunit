@@ -236,6 +236,10 @@ class PHPUnit_TextUI_Command
      */
     protected function handleArguments(array $argv)
     {
+        if (defined('__PHPUNIT_PHAR__')) {
+            $this->longOptions['self-update'] = NULL;
+        }
+
         try {
             $this->options = PHPUnit_Util_Getopt::getopt(
               $argv,
@@ -495,6 +499,11 @@ class PHPUnit_TextUI_Command
 
                 case '--strict': {
                     $this->arguments['strict'] = TRUE;
+                }
+                break;
+
+                case '--self-update': {
+                    $this->handleSelfUpdate();
                 }
                 break;
 
@@ -793,6 +802,35 @@ class PHPUnit_TextUI_Command
     }
 
     /**
+     * @since Method available since Release 3.8.0
+     */
+    protected function handleSelfUpdate()
+    {
+        $remoteFilename = 'http://pear.phpunit.de/get/phpunit.phar';
+        $localFilename  = $_SERVER['argv'][0];
+        $tempFilename   = basename($localFilename, '.phar') . '-temp.phar';
+
+        try {
+            copy($remoteFilename, $tempFilename);
+            chmod($tempFilename, 0777 & ~umask());
+
+            $phar = new Phar($tempFilename);
+            unset($phar);
+            rename($tempFilename, $localFilename);
+        }
+
+        catch (Exception $e) {
+            unlink($tempFilename);
+            print $e->getMessage();
+            exit(PHPUnit_TextUI_TestRunner::EXCEPTION_EXIT);
+        }
+
+        print 'PHPUnit has been successfully updated';
+
+        exit(PHPUnit_TextUI_TestRunner::SUCCESS_EXIT);
+    }
+
+    /**
      * @param string  $message
      * @since Method available since Release 3.6.0
      */
@@ -896,6 +934,10 @@ Usage: phpunit [switches] UnitTest [UnitTest.php]
   --version                 Prints the version and exits.
 
 EOT;
+
+        if (defined('__PHPUNIT_PHAR__')) {
+            print "\n  --self-update             Update PHPUnit to the latest version.\n";
+        }
     }
 
     /**
