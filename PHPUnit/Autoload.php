@@ -78,6 +78,7 @@ spl_autoload_register(
 
       if ($classes === NULL) {
           $classes = array(
+            'phpunit_exception' => '/Exception.php',
             'phpunit_extensions_grouptestsuite' => '/Extensions/GroupTestSuite.php',
             'phpunit_extensions_phpttestcase' => '/Extensions/PhptTestCase.php',
             'phpunit_extensions_phpttestcase_logger' => '/Extensions/PhptTestCase/Logger.php',
@@ -88,6 +89,7 @@ spl_autoload_register(
             'phpunit_framework_assert' => '/Framework/Assert.php',
             'phpunit_framework_assertionfailederror' => '/Framework/AssertionFailedError.php',
             'phpunit_framework_basetestlistener' => '/Framework/BaseTestListener.php',
+            'phpunit_framework_codecoverageexception' => '/Framework/CodeCoverageException.php',
             'phpunit_framework_comparator' => '/Framework/Comparator.php',
             'phpunit_framework_comparator_array' => '/Framework/Comparator/Array.php',
             'phpunit_framework_comparator_datetime' => '/Framework/Comparator/DateTime.php',
@@ -151,6 +153,7 @@ spl_autoload_register(
             'phpunit_framework_incompletetest' => '/Framework/IncompleteTest.php',
             'phpunit_framework_incompletetesterror' => '/Framework/IncompleteTestError.php',
             'phpunit_framework_invalidcoverstargeterror' => '/Framework/InvalidCoversTargetError.php',
+            'phpunit_framework_invalidcoverstargetexception' => '/Framework/InvalidCoversTargetException.php',
             'phpunit_framework_outputerror' => '/Framework/OutputError.php',
             'phpunit_framework_selfdescribing' => '/Framework/SelfDescribing.php',
             'phpunit_framework_skippedtest' => '/Framework/SkippedTest.php',
@@ -167,6 +170,7 @@ spl_autoload_register(
             'phpunit_framework_unintentionallycoveredcodeerror' => '/Framework/UnintentionallyCoveredCodeError.php',
             'phpunit_framework_warning' => '/Framework/Warning.php',
             'phpunit_runner_basetestrunner' => '/Runner/BaseTestRunner.php',
+            'phpunit_runner_exception' => '/Runner/Exception.php',
             'phpunit_runner_filter_factory' => '/Runner/Filter/Factory.php',
             'phpunit_runner_filter_group_exclude' => '/Runner/Filter/Group/Exclude.php',
             'phpunit_runner_filter_group_include' => '/Runner/Filter/Group/Include.php',
