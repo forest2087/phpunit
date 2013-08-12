@@ -119,35 +119,35 @@ class PHPUnit_Util_GlobalState
 
     public static function restoreGlobals(array $blacklist)
     {
-        if (ini_get('register_long_arrays') == '1') {
-            $superGlobalArrays = array_merge(
-              self::$superGlobalArrays, self::$superGlobalArraysLong
-            );
-        } else {
-            $superGlobalArrays = self::$superGlobalArrays;
-        }
+        // if (ini_get('register_long_arrays') == '1') {
+            // $superGlobalArrays = array_merge(
+              // self::$superGlobalArrays, self::$superGlobalArraysLong
+            // );
+        // } else {
+            // $superGlobalArrays = self::$superGlobalArrays;
+        // }
 
-        foreach ($superGlobalArrays as $superGlobalArray) {
-            if (!in_array($superGlobalArray, $blacklist)) {
-                self::restoreSuperGlobalArray($superGlobalArray);
-            }
-        }
+        // foreach ($superGlobalArrays as $superGlobalArray) {
+            // if (!in_array($superGlobalArray, $blacklist)) {
+                // self::restoreSuperGlobalArray($superGlobalArray);
+            // }
+        // }
 
-        foreach (array_keys($GLOBALS) as $key) {
-            if ($key != 'GLOBALS' &&
-                !in_array($key, $superGlobalArrays) &&
-                !in_array($key, $blacklist)) {
-                if (isset(self::$globals['GLOBALS'][$key])) {
-                    $GLOBALS[$key] = unserialize(
-                      self::$globals['GLOBALS'][$key]
-                    );
-                } else {
-                    unset($GLOBALS[$key]);
-                }
-            }
-        }
+        // foreach (array_keys($GLOBALS) as $key) {
+            // if ($key != 'GLOBALS' &&
+                // !in_array($key, $superGlobalArrays) &&
+                // !in_array($key, $blacklist)) {
+                // if (isset(self::$globals['GLOBALS'][$key])) {
+                    // $GLOBALS[$key] = unserialize(
+                      // self::$globals['GLOBALS'][$key]
+                    // );
+                // } else {
+                    // unset($GLOBALS[$key]);
+                // }
+            // }
+        // }
 
-        self::$globals = array();
+        // self::$globals = array();
     }
 
     protected static function backupSuperGlobalArray($superGlobalArray)

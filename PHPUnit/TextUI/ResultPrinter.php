@@ -441,6 +441,8 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
               )
             );
         }
+		
+		$this->preEcho($GLOBALS['timeStrings']);
     }
 
     /**
@@ -565,6 +567,20 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
             );
         }
     }
+	
+	
+    /**
+     * Added EOL preEcho 
+     * 
+     * @param $var array info to display
+     * 
+     * 
+     */
+    function preEcho($var)
+    {
+        $debugOutput = "<pre>". var_export($var, true) ."</pre>" . PHP_EOL;
+        echo $debugOutput;
+    }
 
     /**
      * A test ended.
@@ -575,7 +591,8 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
         if (!$this->lastTestFailed) {
-            $this->writeProgress('.');
+            $this->writeProgress("$key -> Pass -> time -> $time\nassertions -> " .  $test->getNumAssertions() . "\n");
+          
         }
 
         if ($test instanceof PHPUnit_Framework_TestCase) {
